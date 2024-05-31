@@ -1,10 +1,18 @@
 const mongoose = require('mongoose');
-const mongoURI = 'mongodb+srv://arjpatel:ilbbaicnl@merncluster.rjtkjzh.mongodb.net/?retryWrites=true&w=majority&appName=MernCluster';
+const mongoURI = 'mongodb+srv://arjpatel:ilbbaicnl@merncluster.rjtkjzh.mongodb.net/chowKhao?retryWrites=true&w=majority&appName=MernCluster';
+const foodItemSchema = new mongoose.Schema({}, { collection: 'food_items', strict: false });
+const FoodItem = mongoose.model('FoodItem', foodItemSchema);
 
-const mongoDB = () => {
-    mongoose.connect(mongoURI)
-        .then(() => console.log('Connected to MongoDB'))
-        .catch(err => console.error('Could not connect to MongoDB', err));
+const mongoDB = async () => {
+    try {
+        await mongoose.connect(mongoURI);
+        console.log('MongoDB Connection Successful');
+        
+        const foodItems = await FoodItem.find({});
+        // console.log(foodItems);
+    } catch (err) {
+        console.log('MongoDB Connection Failed');
+    }
 }
 
 module.exports = mongoDB;
