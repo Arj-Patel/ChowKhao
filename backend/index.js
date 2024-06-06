@@ -4,6 +4,7 @@ const port = 5000
 const mongodDB = require('./db');
 const cors = require('cors');
 const createUserRouter = require('./Routes/createUser');
+const displayDataRouter = require('./Routes/DisplayData');
 
 // Connect to the database
 mongodDB();
@@ -23,15 +24,16 @@ app.use((req, res, next) => {
   next();
 })
 
-// Routes
+// app.use('/api', createUserRouter);
+// app.use('/', createUserRouter);
+// app.use('/login', createUserRouter);
+app.use('/api', createUserRouter);
+app.use('/api', displayDataRouter);
+
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-// app.use('/api', createUserRouter);
-app.use('/', createUserRouter);
-app.use('/login', createUserRouter);
-app.use('/api', createUserRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

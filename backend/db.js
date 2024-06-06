@@ -6,12 +6,17 @@ const FoodItem = mongoose.model('FoodItem', foodItemSchema);
 const mongoDB = async () => {
     try {
         await mongoose.connect(mongoURI);
-        console.log('MongoDB Connection Successful');
-        
-        const foodItems = await FoodItem.find({});
-        // console.log(foodItems);
+        console.log('Connected to the database');
+        const fetched_data = await FoodItem.find({}).exec();
+        const foodCategory =  await mongoose.connection.db.collection("food_category");
+        const catData = await foodCategory.find({}).toArray();
+        if(catData){
+            global.food_items = fetched_data;
+            global.food_category = catData;
+            console.log('Food items:', global.food_items);
+        }
     } catch (err) {
-        console.log('MongoDB Connection Failed');
+        console.log('Error connecting to database:', err);
     }
 }
 
