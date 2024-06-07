@@ -13,7 +13,7 @@ const mongoDB = async () => {
         if(catData){
             global.food_items = fetched_data;
             global.food_category = catData;
-            console.log('Food items:', global.food_items);
+            // console.log('Food items:', global.food_items);
         }
     } catch (err) {
         console.log('Error connecting to database:', err);
