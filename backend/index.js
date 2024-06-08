@@ -29,6 +29,7 @@ app.use((req, res, next) => {
 // app.use('/login', createUserRouter);
 app.use('/api', createUserRouter);
 app.use('/api', displayDataRouter);
+app.use('/api', require('./Routes/OrderData'));
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
